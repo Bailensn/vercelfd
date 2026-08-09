@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "https://api.telegram.org/$1"
+      "destination": "https://gitee.com/$1"
     }
   ]
 }
