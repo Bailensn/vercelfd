@@ -3,10 +3,6 @@
     {
       "source": "/tg/:path*",
       "destination": "https://api.telegram.org/:path*"
-    },
-    {
-      "source": "/github/:path*",
-      "destination": "https://github.com/:path*"
     }
   ]
 }
