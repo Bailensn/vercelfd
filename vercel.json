@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "https://gitee.com/$1"
+      "destination": "https://github.com/$1"
     }
   ]
 }
