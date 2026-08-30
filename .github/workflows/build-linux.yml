@@ -1,31 +1,31 @@
-name: Build Linux AMD64
+name: Build Dming4 Linux
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-    name: Build Dming4 Linux
+    name: Build amd64 Linux
     runs-on: ubuntu-22.04
+
     container:
-      image: debian:10
+      image: debian:11
 
     steps:
-      - name: Checkout source
+      - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup Go
-        uses: actions/setup-go@v7
-        with:
-          go-version: "1.27.0"
-          cache: true
-
-      - name: Install Gio dependencies
+      - name: Install dependencies
         run: |
           apt update
           apt install -y \
-            pkg-config \
+            curl \
+            git \
             build-essential \
+            pkg-config \
             libwayland-dev \
             libxkbcommon-dev \
             libxkbcommon-x11-dev \
@@ -36,7 +36,19 @@ jobs:
             libegl1-mesa-dev \
             libvulkan-dev
 
-      - name: Download Go modules
+      - name: Install Go
+        run: |
+          curl -LO https://go.dev/dl/go1.27.0.linux-amd64.tar.gz
+          tar -C /usr/local -xzf go1.27.0.linux-amd64.tar.gz
+          echo "/usr/local/go/bin" >> $GITHUB_PATH
+
+      - name: Check environment
+        run: |
+          go version
+          gcc --version
+          pkg-config --version
+
+      - name: Download modules
         run: |
           go mod download
 
