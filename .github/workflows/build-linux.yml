@@ -24,6 +24,7 @@ jobs:
           apt install -y \
             curl \
             git \
+            file \
             build-essential \
             pkg-config \
             libwayland-dev \
