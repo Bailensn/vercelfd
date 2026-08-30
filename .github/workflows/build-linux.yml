@@ -22,8 +22,8 @@ jobs:
 
       - name: Install Gio dependencies
         run: |
-          sudo apt update
-          sudo apt install -y \
+          apt update
+          apt install -y \
             pkg-config \
             build-essential \
             libwayland-dev \
