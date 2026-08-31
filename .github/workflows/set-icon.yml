@@ -1,0 +1,35 @@
+name: Set EXE Icon
+
+on:
+  workflow_dispatch:
+    inputs:
+      exe_path:
+        description: "EXE file path (relative to repository root)"
+        required: true
+        type: string
+      icon_path:
+        description: "ICO icon path (relative to repository root)"
+        required: true
+        type: string
+
+jobs:
+  set-icon:
+    runs-on: windows-10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install rcedit
+        run: npm install -g rcedit
+
+      - name: Set icon
+        shell: pwsh
+        run: |
+          rcedit "${{ inputs.exe_path }}" --set-icon "${{ inputs.icon_path }}"
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: exe-with-icon
+          path: ${{ inputs.exe_path }}
