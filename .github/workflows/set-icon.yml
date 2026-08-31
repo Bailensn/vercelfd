@@ -4,32 +4,34 @@ on:
   workflow_dispatch:
     inputs:
       exe_path:
-        description: "EXE file path (relative to repository root)"
+        description: "exe路径"
         required: true
         type: string
+
       icon_path:
-        description: "ICO icon path (relative to repository root)"
+        description: "图标路径(.ico)"
         required: true
         type: string
 
 jobs:
   set-icon:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v7
 
       - name: Install rcedit
-        run: npm install -g rcedit
+        run: |
+          npm install -g rcedit
 
-      - name: Set icon
+      - name: Set EXE icon
         shell: pwsh
         run: |
-          rcedit "${{ inputs.exe_path }}" --set-icon "${{ inputs.icon_path }}"
+          npx rcedit "${{ inputs.exe_path }}" --set-icon "${{ inputs.icon_path }}"
 
-      - name: Upload result
-        uses: actions/upload-artifact@v4
+      - name: Upload modified EXE
+        uses: actions/upload-artifact@v7
         with:
           name: exe-with-icon
           path: ${{ inputs.exe_path }}
