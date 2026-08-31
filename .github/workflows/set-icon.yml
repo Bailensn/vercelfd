@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       exe_path:
-        description: "exe路径"
+        description: "EXE file path"
         required: true
         type: string
 
       icon_path:
-        description: "图标路径(.ico)"
+        description: "ICO icon path"
         required: true
         type: string
 
@@ -23,12 +23,12 @@ jobs:
 
       - name: Install rcedit
         run: |
-          npm install -g rcedit
+          npm install rcedit
 
       - name: Set EXE icon
         shell: pwsh
         run: |
-          npx rcedit "${{ inputs.exe_path }}" --set-icon "${{ inputs.icon_path }}"
+          node -e "require('./node_modules/rcedit/lib/rcedit')('${{ inputs.exe_path }}', {icon:'${{ inputs.icon_path }}'}).then(()=>console.log('done')).catch(e=>{console.error(e);process.exit(1)})"
 
       - name: Upload modified EXE
         uses: actions/upload-artifact@v7
