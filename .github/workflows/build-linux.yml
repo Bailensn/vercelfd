@@ -2,9 +2,6 @@ name: Build Dming4 Linux
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   build:
