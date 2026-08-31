@@ -14,7 +14,7 @@ on:
 
 jobs:
   set-icon:
-    runs-on: windows-10
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
